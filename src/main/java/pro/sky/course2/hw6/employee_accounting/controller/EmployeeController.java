@@ -10,6 +10,7 @@ import pro.sky.course2.hw6.employee_accounting.exceptions.EmployeeAlreadyAddedEx
 import pro.sky.course2.hw6.employee_accounting.exceptions.EmployeeStorageIsFullException;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/employee")
@@ -22,34 +23,25 @@ public class EmployeeController {
     }
 
     @GetMapping("/add")
-    public Employee add(@RequestParam("firstName") String firstName,
+    public Employee add (@RequestParam("firstName") String firstName,
                         @RequestParam("lastName") String lastName) {
-//        try {
-//            add(firstName, lastName);
-//        } catch (EmployeeAlreadyAddedException | EmployeeStorageIsFullException e);
         return employeeService.add(firstName, lastName);
     }
 
     @GetMapping("/remove")
     public Employee remove (@RequestParam("firstName") String firstName,
-                        @RequestParam("lastName") String lastName) {
-//        try {
-//            remove(firstName, lastName);
-//        } catch (EmployeeAlreadyAddedException | EmployeeStorageIsFullException e);
+                            @RequestParam("lastName") String lastName) {
         return employeeService.remove(firstName, lastName);
     }
 
     @GetMapping("/find")
     public Employee find (@RequestParam("firstName") String firstName,
                         @RequestParam("lastName") String lastName) {
-//        try {
-//            add(firstName, lastName);
-//        } catch (EmployeeAlreadyAddedException | EmployeeStorageIsFullException e);
         return employeeService.find(firstName, lastName);
     }
 
     @GetMapping
-    public List<Employee> getEmployees() {
-        return employeeService.getEmployees();
+    public List <Employee> getAll() {
+        return employeeService.getAll();
     }
 }
