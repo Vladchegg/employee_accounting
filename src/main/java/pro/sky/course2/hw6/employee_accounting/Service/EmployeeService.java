@@ -16,8 +16,8 @@ public class EmployeeService {
     private Map<String, Employee> getMapEmployees;
     public Map <String, Employee> mapEmployees = new HashMap<>();
 
-    public Employee add (String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee add (String firstName, String lastName, int department, int salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
         if (mapEmployees.containsKey(employee.getFullName())) {
             throw new EmployeeAlreadyAddedException();
         }
@@ -29,16 +29,16 @@ public class EmployeeService {
         }
 
 
-    public Employee remove (String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee remove (String firstName, String lastName, int department, int salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
         if (!mapEmployees.containsKey(employee.getFullName())) {
             throw new EmployeeNotFoundException();
         }
         return mapEmployees.remove(employee.getFullName());
     }
 
-    public Employee find (String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee find (String firstName, String lastName, int department, int salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
         if (!mapEmployees.containsKey(employee.getFullName())) {
             throw new EmployeeNotFoundException();
         }
