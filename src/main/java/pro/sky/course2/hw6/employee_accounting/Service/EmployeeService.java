@@ -13,40 +13,39 @@ public class EmployeeService {
 
     private static int LIMIT = 10;
 
-    public List<Employee> getEmployees;
-    private List<Employee> employees = new ArrayList<>();
+    private Map<String, Employee> getMapEmployees;
+    public Map <String, Employee> mapEmployees = new HashMap<>();
 
-    public Employee add (String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-        if (employees.contains(employee)) {
+    public Employee add (String firstName, String lastName, int department, int salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
+        if (mapEmployees.containsKey(employee.getFullName())) {
             throw new EmployeeAlreadyAddedException();
         }
-        if (employees.size() < LIMIT) {
-            employees.add(employee);
+        if (mapEmployees.size() < LIMIT) {
+            mapEmployees.put(employee.getFullName(), employee);
             return employee;
         }
             throw new EmployeeStorageIsFullException();
         }
 
 
-    public Employee remove (String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-        if (!employees.contains(employee)) {
+    public Employee remove (String firstName, String lastName, int department, int salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
+        if (!mapEmployees.containsKey(employee.getFullName())) {
             throw new EmployeeNotFoundException();
         }
-        employees.remove(employee);
-        return employee;
+        return mapEmployees.remove(employee.getFullName());
     }
 
-    public Employee find (String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-        if (!employees.contains(employee)) {
+    public Employee find (String firstName, String lastName, int department, int salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
+        if (!mapEmployees.containsKey(employee.getFullName())) {
             throw new EmployeeNotFoundException();
         }
-        return employee;
+        return mapEmployees.get(employee.getFullName());
     }
 
-    public List<Employee> getEmployees() {
-        return new ArrayList<>(employees);
+    public List<Employee> getAll() {
+        return new ArrayList<>(mapEmployees.values());
     }
 }
